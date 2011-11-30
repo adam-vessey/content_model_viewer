@@ -96,7 +96,7 @@ function content_model_viewer_set_default_rules() {
  */
 function content_model_viewer_schema() {
   $schema[CONTENT_MODEL_VIEWER_DATASTREAM_RELS_VIEW_DERIVED_RULES_TABLE] = array(
-    'description' => t(''),
+    'description' => '',
     'fields' => array(
       'id' => array(
         'type' => 'serial',
@@ -138,7 +138,7 @@ function content_model_viewer_schema() {
     ),
   );
   $schema[CONTENT_MODEL_VIEWER_DATASTREAM_DSID_VIEW_DERIVED_RULES_TABLE] = array(
-    'description' => t(''),
+    'description' => '',
     'fields' => array(
       'id' => array(
         'type' => 'serial',

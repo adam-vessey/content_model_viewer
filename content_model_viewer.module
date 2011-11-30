@@ -25,8 +25,8 @@ define("PERM_CONTENT_MODEL_VIEWER_MODIFY_DATASTEAM_PROPERTIES", 'Modify Datastre
  */
 function content_model_viewer_menu() {
   $items['viewer/%'] = array(
-    'title' => t('Content Model Viewer'),
-    'description' => t('Allows users to view Fedora Objects.'),
+    'title' => 'Content Model Viewer',
+    'description' => 'Allows users to view Fedora Objects.',
     'page callback' => 'content_model_viewer',
     'page arguments' => array(1),
     'access arguments' => array(PERM_CONTENT_MODEL_VIEWER_VIEW_OBJECTS),
@@ -93,8 +93,8 @@ function content_model_viewer_menu() {
     'type' => MENU_CALLBACK,
   );
   $items['admin/settings/content_model_viewer'] = array(
-    'title' => t('Content Model Viewer Settings'),
-    'description' => t('Settings for the Content Model Viewer.'),
+    'title' => 'Content Model Viewer Settings',
+    'description' => 'Settings for the Content Model Viewer.',
     'page callback' => 'theme',
     'page arguments' => array('content_model_viewer_settings'),
     'access arguments' => array('administer site configuration'),
@@ -102,8 +102,8 @@ function content_model_viewer_menu() {
     'type' => MENU_NORMAL_ITEM,
   );
   $items['admin/settings/content_model_viewer/%/edit'] = array(
-    'title' => t('Content Model Viewer Settings'),
-    'description' => t('Settings for the Contet Model Viewer.'),
+    'title' => 'Content Model Viewer Settings',
+    'description' => 'Settings for the Contet Model Viewer.',
     'file' => 'content_model_viewer.admin.inc',
     'page callback' => 'theme',
     'page arguments' => array('content_model_viewer_custom_settings', 3),
@@ -413,18 +413,18 @@ function template_preprocess_content_model_viewer(array &$variables) {
   $variables['view_function'] = 'loadFlexPlayer';
   $variables['paths'] = array(
     'object' => array(
-      'overview' => "viewer/$pid/overview",
-      'properties' => "viewer/$pid/properties",
-      'datastreams' => "viewer/$pid/datastreams",
-      'members' => "viewer/$pid/members",
-      'purge' => "viewer/$pid/purge"
+      'overview' => url("viewer/$pid/overview"),
+      'properties' => url("viewer/$pid/properties"),
+      'datastreams' => url("viewer/$pid/datastreams"),
+      'members' => url("viewer/$pid/members"),
+      'purge' => url("viewer/$pid/purge")
     ),
     'datastream' => array(
-      'add' => "viewer/$pid/add",
-      'purge' => "viewer/$pid/dsid/purge",
-      'properties' => "viewer/$pid/dsid/properties",
-      'download' => "viewer/$pid/dsid/download",
-      'view' => "viewer/$pid/dsid/view"
+      'add' => url("viewer/$pid/add"),
+      'purge' => url("viewer/$pid/dsid/purge"),
+      'properties' => url("viewer/$pid/dsid/properties"),
+      'download' => url("viewer/$pid/dsid/download"),
+      'view' => url("viewer/$pid/dsid/view")
     )
   );
 }
@@ -930,8 +930,10 @@ function content_model_viewer_ingest_metadata_form_validate(array &$form, array 
         $format = $mimetype->getType($file);
         if (!empty($file)) {
           if (!in_array($format, $allowed_mime_types)) {
-            form_set_error('ingest-file-location', t('The uploaded file\'s mimetype ('. $format .') is not associated with this Content Model. The allowed types are ' .
-                    implode(' ', $allowed_mime_types)));
+            form_set_error('ingest-file-location', t('The uploaded file\'s mimetype (@format) is not associated with this Content Model. The allowed types are: @types', array(
+              '@format' => $format,
+              '@types' => implode(' ', $allowed_mime_types)
+            )));
             file_delete($file);
             return;
           }

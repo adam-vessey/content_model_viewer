@@ -289,7 +289,7 @@ function content_model_viewer_datastream_mimetype_rules_form($form_state, $model
   $rows['add'] = array(
     'mime' => array(
       '#type' => 'textfield',
-      '#title' => t(''),
+      '#title' => '',
       '#description' => t('A valid MIME Type.'),
       '#size' => 60,
     ),
@@ -376,13 +376,13 @@ function content_model_viewer_datastream_dsid_rules_form($form_state, $model_id 
   $rows['add'] = array(
     'dsid' => array(
       '#type' => 'textfield',
-      '#title' => t(''),
+      '#title' => '',
       '#description' => t('The input for either Exact Match or a PCRE (Perl-Compatible Regular Expression)'),
       '#size' => 60,
     ),
     'type' => array(
       '#type' => 'select',
-      '#title' => t(''),
+      '#title' => '',
       '#options' => array(0 => t('Exact'), 1 => t('Regex'))
     ),
     'view' => array(
@@ -467,25 +467,25 @@ function content_model_viewer_datastream_rels_view_derived_form($form_state, $mo
   $rows['add'] = array(
     'mime' => array(
       '#type' => 'textfield',
-      '#title' => t(''),
+      '#title' => '',
       '#description' => t('A valid MIME Type.'),
       '#size' => 20,
     ),
     'xpath' => array(
       '#type' => 'textfield',
-      '#title' => t(''),
+      '#title' => '',
       '#description' => t('A valid xpath for RELS-INT.'),
       '#size' => 60,
     ),
     'matching' => array(
       '#type' => 'textfield',
-      '#title' => t(''),
+      '#title' => '',
       '#description' => t('The input for either Exact Match or a PCRE'),
       '#size' => 30,
     ),
     'type' => array(
       '#type' => 'select',
-      '#title' => t(''),
+      '#title' => '',
       '#options' => array(0 => t('Exact'), 1 => t('Regex'))
     ),
     'add' => array(
@@ -550,24 +550,24 @@ function content_model_viewer_datastream_dsid_view_derived_form($form_state, $mo
   $rows['add'] = array(
     'src_dsid' => array(
       '#type' => 'textfield',
-      '#title' => t(''),
+      '#title' => '',
       '#description' => t('The input for either Exact Match or a PCRE'),
       '#size' => 30,
     ),
     'src_type' => array(
       '#type' => 'select',
-      '#title' => t(''),
+      '#title' => '',
       '#options' => array(0 => t('Exact'), 1 => t('Regex'))
     ),
     'dest_dsid' => array(
       '#type' => 'textfield',
-      '#title' => t(''),
+      '#title' => '',
       '#description' => t('The input for either Exact Match or a PCRE'),
       '#size' => 30,
     ),
     'dest_type' => array(
       '#type' => 'select',
-      '#title' => t(''),
+      '#title' => '',
       '#options' => array(0 => t('Exact'), 1 => t('Regex'))
     ),
     'add' => array(
