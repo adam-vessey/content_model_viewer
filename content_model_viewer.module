@@ -759,11 +759,11 @@ function content_model_viewer_object_has_members($pid) {
  */
 function content_model_viewer_is_object_collection($pid) {
   $itql_query = 'select $object $title $content from <#ri>
-                             where ($object <info:fedora/fedora-system:def/model#label> $title
-                             and $object <fedora-model:hasModel> $content
-                             and ($content <fedora-model:hasModel> <info:fedora/islandora:collectionCModel>)
-                             and $object <fedora-model:state> <info:fedora/fedora-system:def/model#Active>)
-                             order by $title';
+                 where ($object <info:fedora/fedora-system:def/model#label> $title
+                 and $object <fedora-model:hasModel> $content
+                 and ($content <fedora-model:hasModel> <info:fedora/islandora:collectionCModel>)
+                 and $object <fedora-model:state> <info:fedora/fedora-system:def/model#Active>)
+                 order by $title';
   module_load_include('inc', 'fedora_repository', 'CollectionClass');
   $collection = new CollectionClass();
   $results = $collection->getRelatedItems(NULL, $itql_query);
@@ -930,7 +930,7 @@ function content_model_viewer_ingest_metadata_form_validate(array &$form, array 
         $format = $mimetype->getType($file);
         if (!empty($file)) {
           if (!in_array($format, $allowed_mime_types)) {
-            form_set_error('ingest-file-location', t('The uploaded file\'s mimetype (' . $format . ') is not associated with this Content Model. The allowed types are ' .
+            form_set_error('ingest-file-location', t('The uploaded file\'s mimetype ('. $format .') is not associated with this Content Model. The allowed types are ' .
                     implode(' ', $allowed_mime_types)));
             file_delete($file);
             return;
