@@ -2,7 +2,7 @@ Ext.onReady(function(){
   Ext.define('ContentModelViewer.widgets.ViewerPanel', {
     extend: 'Ext.panel.Panel',
     itemId: 'viewer',
-    title: 'Viewer',
+    title: Drupal.t('Viewer'),
     layout: {
       type: 'border'
     },
@@ -22,7 +22,7 @@ Ext.onReady(function(){
       }
     }, {
       xtype: 'panel',
-      title: 'Files',
+      title: Drupal.t('Files'),
       width: 260,
       collapsible: true,
       collapsed: false,
@@ -33,7 +33,7 @@ Ext.onReady(function(){
         dock: 'top',
         items: [{
           xtype: 'button',
-          text: 'View',
+          text: Drupal.t('View'),
           cls: 'x-btn-text-icon',
           iconCls: 'view-datastream-icon',
           disabled: true,
@@ -49,7 +49,7 @@ Ext.onReady(function(){
           }
         }, {
           xtype: 'button',
-          text: 'Download',
+          text: Drupal.t('Download'),
           cls: 'x-btn-text-icon',
           iconCls: 'download-datastream-icon',
           disabled: true,
@@ -78,7 +78,7 @@ Ext.onReady(function(){
         xtype: 'dataview',
         store: Ext.data.StoreManager.lookup('files'),
         itemSelector: 'div.file-item',
-        emptyText: 'No Files Available',
+        emptyText: Drupal.t('No Files Available'),
         deferEmptyText: false,
         itemTpl: new Ext.XTemplate(
           '<tpl for=".">',

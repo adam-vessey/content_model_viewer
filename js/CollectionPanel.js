@@ -4,7 +4,7 @@ Ext.onReady(function(){
     var types = ['label', 'created'];
     var direction = 0;
     var directions = ['ASC', 'DESC'];
-    var labels = ['Label', 'Date Created'];
+    var labels = [Drupal.t('Label'), Drupal.t('Date Created')];
     return {
       toggleType: function() {
         type = type ? 0 : 1;
@@ -36,13 +36,13 @@ Ext.onReady(function(){
   Ext.define('ContentModelViewer.widgets.CollectionPanel', {
     extend: 'Ext.panel.Panel',
     itemId: 'collection',
-    title: 'Collection',
+    title: Drupal.t('Collection'),
     dockedItems: [{
       xtype: 'toolbar',
       dock: 'top',
       items: [ {
         xtype: 'tbtext', 
-        text: 'Sort By: '
+        text: Drupal.t('Sort By: ')
       }, Ext.create('Ext.Action', {
         text : sorter.label(),
         handler: function(action, event) {
@@ -62,13 +62,13 @@ Ext.onReady(function(){
         }
       }, {
         xtype: 'tbtext',
-        text: 'Search'
+        text: Drupal.t('Search')
       }, {
         xtype: 'textfield',
         hideLabel: true
       }, {
         xtype: 'button',
-        text: 'Go',
+        text: Drupal.t('Go'),
         handler: function(button, event) {
           var store = Ext.data.StoreManager.lookup('members');
           var filters = store.filters;
@@ -81,7 +81,7 @@ Ext.onReady(function(){
         }
       }, '->', {
         xtype: 'button',
-        text: 'Add to this Collection',
+        text: Drupal.t('Add to this Collection'),
         handler: function(button, event) {
           var form = Ext.get("datastream-edit-form");
           form.set({
@@ -111,7 +111,7 @@ Ext.onReady(function(){
       xtype: 'dataview',
       store: Ext.data.StoreManager.lookup('members'),
       itemSelector: 'div.file-item',
-      emptyText: 'No Files Available',
+      emptyText: Drupal.t('No Files Available'),
       deferEmptyText: false,
       itemTpl: new Ext.XTemplate(
         '<tpl for=".">',
@@ -130,7 +130,7 @@ Ext.onReady(function(){
           disableFormats: true,
           getLabel: function(label) {
             var empty = jQuery.trim(label) == '';
-            return empty ? 'Default Label: (Please notify an administrator to provide a label)' : label;
+            return empty ? Drupal.t('Default Label: (Please notify an administrator to provide a label)') : label;
           }
         })
     }]

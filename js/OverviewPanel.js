@@ -2,14 +2,14 @@ Ext.onReady(function(){
   Ext.define('ContentModelViewer.widgets.OverviewPanel', {
     extend: 'Ext.panel.Panel',
     itemId: 'overview',
-    title: 'Overview',
+    title: Drupal.t('Overview'),
     layout: {
       type: 'border'
     },
     items: [{
       xtype: 'panel',
       autoScroll: true,
-      html: '<div>Loading...</div>',
+      html: '<div>' + Drupal.t('Loading...') + '</div>',
       loader: {
         url: ContentModelViewer.properties.url.object.overview,
         //renderer: 'data',
@@ -35,7 +35,7 @@ Ext.onReady(function(){
       region: 'center'
     }, {
       xtype: 'panel',
-      title: 'Files',
+      title: Drupal.t('Files'),
       width: 260,
       collapsed: true,
       collapsible: true,
@@ -46,7 +46,7 @@ Ext.onReady(function(){
         dock: 'top',
         items: [{
           xtype: 'button',
-          text: 'View',
+          text: Drupal.t('View'),
           cls: 'x-btn-text-icon',
           iconCls: 'view-datastream-icon',
           disabled: true,
@@ -62,7 +62,7 @@ Ext.onReady(function(){
           }
         }, {
           xtype: 'button',
-          text: 'Download',
+          text: Drupal.t('Download'),
           cls: 'x-btn-text-icon',
           iconCls: 'download-datastream-icon',
           disabled: true,
@@ -91,7 +91,7 @@ Ext.onReady(function(){
         xtype: 'dataview',
         store: Ext.data.StoreManager.lookup('files'),
         itemSelector: 'div.file-item',
-        emptyText: 'No Files Available',
+        emptyText: Drupal.t('No Files Available'),
         deferEmptyText: false,
         itemTpl: new Ext.XTemplate(
           '<tpl for=".">',

@@ -3,13 +3,13 @@ Ext.onReady(function(){
     extend: 'Ext.form.field.File',
     xtype: 'filefield',
     name: 'file',
-    fieldLabel: 'File'
+    fieldLabel: Drupal.t('File')
   })
     
   Ext.define('ContentModelViewer.widgets.ManagePanel', {
     extend: 'Ext.panel.Panel',
     itemId: 'manage',
-    title: 'Manage',
+    title: Drupal.t('Manage'),
     layout: {
       type: 'border'
     },
@@ -22,7 +22,7 @@ Ext.onReady(function(){
       },
       items: [{
         xtype: 'form',
-        title: 'Object Properties',
+        title: Drupal.t('Object Properties'),
         height: 245,
         region: 'center',
         bodyPadding: 10,
@@ -35,17 +35,17 @@ Ext.onReady(function(){
         }),
         items: [{
           xtype: 'textfield',
-          fieldLabel: 'Label',
+          fieldLabel: Drupal.t('Label'),
           name: 'label',
           width: 350
         }, {
           xtype: 'textfield',
-          fieldLabel: 'Owner',
+          fieldLabel: Drupal.t('Owner'),
           name: 'owner',
           width: 350
         }, {
           xtype: 'combobox',
-          fieldLabel: 'State',
+          fieldLabel: Drupal.t('State'),
           name: 'state',
           queryMode: 'local',
           displayField: 'name',
@@ -55,33 +55,33 @@ Ext.onReady(function(){
             fields: ['value', 'name'],
             data : [{
               value:'A', 
-              name:'Active'
+              name: Drupal.t('Active')
             }, {
               value:'I', 
-              name:'Inactive'
+              name: Drupal.t('Inactive')
             }, {
               value:'D', 
-              name:'Deleted'
+              name: Drupal.t('Deleted')
             }]
           })
         }, {
           xtype: 'displayfield',
-          fieldLabel: 'Date Created',
+          fieldLabel: Drupal.t('Date Created'),
           name: 'created',
           width: 400
         }, {
           xtype: 'displayfield',
-          fieldLabel: 'Last Modified',
+          fieldLabel: Drupal.t('Last Modified'),
           name: 'modified',
           width: 400
         }],
         buttons: [{
-          text: 'Save Changes',
+          text: Drupal.t('Save Changes'),
           formBind: true, // Only enabled once the form is valid
           handler: function(button) {
             button.up('form').getForm().submit({
               url: ContentModelViewer.properties.url.object.properties,
-              waitMsg: 'Saving Data...',
+              waitMsg: Drupal.t('Saving Data...'),
               success: function(form, action) {
                 var store = Ext.data.StoreManager.lookup('objectProperties');
                 var record = store.first();
@@ -96,21 +96,21 @@ Ext.onReady(function(){
           dock: 'top',
           items: [{
             xtype: 'button',
-            text: 'Edit Permissions',
+            text: Drupal.t('Edit Permissions'),
             cls: 'x-btn-text-icon',
             iconCls: 'edit-datastream-icon',
             id: 'edit-xacml',
             handler: function() {
-              Ext.Msg.alert('Action Restricted', 'This action is currently restricted');
+              Ext.Msg.alert(Drupal.t('Action Restricted'), Drupal.t('This action is currently restricted'));
             }
           }, {
             xtype: 'button',
-            text: 'Purge Object',
+            text: Drupal.t('Purge Object'),
             cls: 'x-btn-text-icon',
             iconCls: 'remove-datastream-icon',
             id: 'purge-object',
             handler: function() {
-              Ext.Msg.alert('Action Restricted', 'This action is currently restricted');
+              Ext.Msg.alert(Drupal.t('Action Restricted'), Drupal.t('This action is currently restricted'));
             }
           }]
         }],
@@ -119,19 +119,19 @@ Ext.onReady(function(){
             form.getForm().load({
               method: 'GET',
               url: ContentModelViewer.properties.url.object.properties,
-              waitMsg: 'Loading...'
+              waitMsg: Drupal.t('Loading...')
             });
           }
         }
       }, {
         xtype: 'panel',
-        title: 'Datastream Preview',
+        title: Drupal.t('Datastream Preview'),
         region: 'east',
         width: 350
       }]
     }, {
       xtype: 'gridpanel',
-      title: 'Datastreams',
+      title: Drupal.t('Datastreams'),
       id: 'manage-panel-datastreams',
       region: 'center',
       selType: 'rowmodel',
@@ -143,7 +143,7 @@ Ext.onReady(function(){
         dataIndex: 'dsid',
         flex: 1
       }, {
-        header: 'Label', 
+        header: Drupal.t('Label'), 
         dataIndex: 'label', 
         field:{
           xtype:'textfield',
@@ -151,7 +151,7 @@ Ext.onReady(function(){
         },
         flex: 1
       }, {
-        header: 'State', 
+        header: Drupal.t('State'), 
         dataIndex: 'state',
         field:{
           xtype:'combobox',
@@ -159,19 +159,19 @@ Ext.onReady(function(){
             fields: ['value', 'name'],
             data : [{
               "value":"A", 
-              "name":"Active"
+              "name": Drupal.t("Active")
             }, {
               "value":"I", 
-              "name":"Inactive"
+              "name": Drupal.t("Inactive")
             }]
           }),
           queryMode: 'local',
           displayField: 'name',
           valueField: 'value',
-          value: "Inactive"
+          value: Drupal.t("Inactive")
         }
       }, {
-        header: 'Mime Type', 
+        header: Drupal.t('Mime Type'), 
         dataIndex: 'mime',
         field:{
           xtype:'textfield',
@@ -179,7 +179,7 @@ Ext.onReady(function(){
         },
         flex: 1
       }, {
-        header: 'Date Created', 
+        header: Drupal.t('Date Created'), 
         dataIndex: 'created',
         flex: 1
       }],
@@ -205,13 +205,13 @@ Ext.onReady(function(){
         dock: 'top',
         items: [{
           xtype: 'button',
-          text: 'Add',
+          text: Drupal.t('Add'),
           cls: 'x-btn-text-icon',
           iconCls: 'add-datastream-icon',
           id: 'add-datastream',
           handler : function() {
             Ext.create('Ext.window.Window', {
-              title: 'Add Datastream',
+              title: Drupal.t('Add Datastream'),
               height: 250,
               width: 375,
               layout: 'fit',
@@ -221,25 +221,25 @@ Ext.onReady(function(){
                 items: [{
                   xtype: 'textfield',
                   name: 'dsid',
-                  fieldLabel: 'Identifier',
+                  fieldLabel: Drupal.t('Identifier'),
                   width: 300
                 }, {
                   xtype: 'textfield',
                   name: 'label',
-                  fieldLabel: 'Label',
+                  fieldLabel: Drupal.t('Label'),
                   width: 300
                 }, {
                   xtype:'combobox',
                   name: 'state',
-                  fieldLabel: 'State',
+                  fieldLabel: Drupal.t('State'),
                   store: Ext.create('Ext.data.Store', {
                     fields: ['value', 'name'],
                     data : [{
                       "value":"A", 
-                      "name":"Active"
+                      "name": Drupal.t("Active")
                     }, {
                       "value":"I", 
-                      "name":"Inactive"
+                      "name": Drupal.t("Inactive")
                     }]
                   }),
                   queryMode: 'local',
@@ -249,21 +249,21 @@ Ext.onReady(function(){
                 }, {
                   xtype:'combobox',
                   name: 'control',
-                  fieldLabel: 'Control Group',
+                  fieldLabel: Drupal.t('Control Group'),
                   store: Ext.create('Ext.data.Store', {
                     fields: ['value', 'name'],
                     data : [{
                       "value":"X", 
-                      "name":"Internal XML"
+                      "name": Drupal.t("Internal XML")
                     }, {
                       "value":"M", 
-                      "name":"Managed Content"
+                      "name": Drupal.t("Managed Content")
                     }, {
                       "value":"E", 
-                      "name":"External Referenced Content"
+                      "name": Drupal.t("External Referenced Content")
                     }, {
                       "value":"R", 
-                      "name":"Redirect Referenced Content"
+                      "name": Drupal.t("Redirect Referenced Content")
                     }]
                   }),
                   queryMode: 'local',
@@ -294,7 +294,7 @@ Ext.onReady(function(){
                   }), {
                     xtype:'textfield',
                     itemId: 'url',
-                    fieldLabel: 'Location',
+                    fieldLabel: Drupal.t('Location'),
                     name: 'url'
                   }],
                   buttons: [{
@@ -303,24 +303,24 @@ Ext.onReady(function(){
                     handler: function(button) {
                       button.up('form').getForm().submit({
                         url: ContentModelViewer.properties.url.datastream.add,
-                        waitMsg: 'Creating...',
+                        waitMsg: Drupal.t('Creating...'),
                         success: function(form, action) {
                           var pager = Ext.getCmp('datastream-pager');
                           pager.doRefresh();
-                          Ext.Msg.alert('Status', 'Successfully Added datastream.');
+                          Ext.Msg.alert(Drupal.t('Status'), Drupal.t('Successfully Added datastream.'));
                           var window = button.up('window');
                           window.close();
                         },
                         failure: function(form, action) {
                           switch (action.failureType) {
                             case Ext.form.action.Action.CLIENT_INVALID:
-                              Ext.Msg.alert('Failure', 'Form fields may not be submitted with invalid values');
+                              Ext.Msg.alert(Drupal.t('Failure'), Drupal.t('Form fields may not be submitted with invalid values'));
                               break;
                             case Ext.form.action.Action.CONNECT_FAILURE:
-                              Ext.Msg.alert('Failure', 'Ajax communication failed');
+                              Ext.Msg.alert(Drupal.t('Failure'), Drupal.t('Ajax communication failed'));
                               break;
                             case Ext.form.action.Action.SERVER_INVALID:
-                              Ext.Msg.alert('Failure', action.result.msg);
+                              Ext.Msg.alert(Drupal.t('Failure'), action.result.msg);
                           }
                           var window = button.up('window');
                           window.close();
@@ -334,7 +334,7 @@ Ext.onReady(function(){
           }
         }, {
           xtype: 'button',
-          text: 'Remove',
+          text: Drupal.t('Remove'),
           disabled: true,
           cls: 'x-btn-text-icon',
           iconCls: 'remove-datastream-icon',
@@ -343,8 +343,8 @@ Ext.onReady(function(){
             var grid = this.up('gridpanel');
             var selectionModel = grid.getSelectionModel();
             Ext.Msg.show({
-              title:'Remove Datastream?',
-              msg: 'Are you sure you want to remove this datastream? This action cannot be undone.',
+              title: Drupal.t('Remove Datastream?'),
+              msg: Drupal.t('Are you sure you want to remove this datastream? This action cannot be undone.'),
               buttons: Ext.Msg.YESNO,
               fn: function(choice) {
                 if(choice == 'yes') {
@@ -359,7 +359,7 @@ Ext.onReady(function(){
                       success: function(response){
                         var pager = Ext.getCmp('datastream-pager');
                         pager.doRefresh();
-                        Ext.Msg.alert('Status', 'Successfully removed datastream.');
+                        Ext.Msg.alert(Drupal.t('Status'), Drupal.t('Successfully removed datastream.'));
                       }
                     });
                   }
@@ -370,7 +370,7 @@ Ext.onReady(function(){
           }
         }, {
           xtype: 'button',
-          text: 'Edit',
+          text: Drupal.t('Edit'),
           disabled: true,
           cls: 'x-btn-text-icon',
           iconCls: 'edit-datastream-icon',
@@ -397,7 +397,7 @@ Ext.onReady(function(){
           }
         },  {
           xtype: 'button',
-          text: 'Download',
+          text: Drupal.t('Download'),
           disabled: true,
           cls: 'x-btn-text-icon',
           iconCls: 'download-datastream-icon',
@@ -418,7 +418,7 @@ Ext.onReady(function(){
           }
         }, {
           xtype: 'button',
-          text: 'View',
+          text: Drupal.t('View'),
           disabled: true,
           cls: 'x-btn-text-icon',
           iconCls: 'view-datastream-icon',
