@@ -83,69 +83,69 @@ class Collection {
   }
 
   /**
-   * Runs a SPARQL query and returns the results in a array.
+   * Runs a ITQL query and returns the results in a array.
    * 
    * @return array
    */
   private function findAllMembers() {
     $query = 'select $object $title $model $created from <#ri>
-                             where ($object <info:fedora/fedora-system:def/model#label> $title
-                             and $object <fedora-model:hasModel> $model
-                             and $object <fedora-model:createdDate> $created
-                             and $object <fedora-model:state> <info:fedora/fedora-system:def/model#Active>
-                             and ($object <fedora-rels-ext:isMemberOfCollection> <info:fedora/' . $this->pid . '>
-                             or $object <fedora-rels-ext:isMemberOf> <info:fedora/' . $this->pid . '>))
-                             minus $model <mulgara:is> <info:fedora/fedora-system:FedoraObject-3.0>
-                             minus $model <mulgara:is> <info:fedora/fedora-system:ContentModel-3.0>
-                             order by $title';
+             where ($object <info:fedora/fedora-system:def/model#label> $title
+             and $object <fedora-model:hasModel> $model
+             and $object <fedora-model:createdDate> $created
+             and $object <fedora-model:state> <info:fedora/fedora-system:def/model#Active>
+             and ($object <fedora-rels-ext:isMemberOfCollection> <info:fedora/' . $this->pid . '>
+             or $object <fedora-rels-ext:isMemberOf> <info:fedora/' . $this->pid . '>))
+             minus $model <mulgara:is> <info:fedora/fedora-system:FedoraObject-3.0>
+             minus $model <mulgara:is> <info:fedora/fedora-system:ContentModel-3.0>
+             order by $title';
     return $this->query($query);
   }
 
   /**
-   * Runs a SPARQL query and returns the results in a array.
+   * Runs a ITQL query and returns the results in a array.
    * 
    * @return array
    */
   private function findMemberObjects() {
     $query = 'select $object $title $model $parent_model $created from <#ri>
-                             where ($object <info:fedora/fedora-system:def/model#label> $title
-                             and $object <fedora-model:createdDate> $created
-                             and $object <fedora-model:hasModel> $model
-                             and $model <fedora-model:hasModel> $parent_model
-                             and $parent_model <mulgara:is> <info:fedora/fedora-system:ContentModel-3.0>
-                             and $object <fedora-model:state> <info:fedora/fedora-system:def/model#Active>
-                             and ($object <fedora-rels-ext:isMemberOfCollection> <info:fedora/' . $this->pid . '>
-                             or $object <fedora-rels-ext:isMemberOf> <info:fedora/' . $this->pid . '>))
-                             minus $model <mulgara:is> <info:fedora/fedora-system:FedoraObject-3.0>
-                             order by $title';
+             where ($object <info:fedora/fedora-system:def/model#label> $title
+             and $object <fedora-model:createdDate> $created
+             and $object <fedora-model:hasModel> $model
+             and $model <fedora-model:hasModel> $parent_model
+             and $parent_model <mulgara:is> <info:fedora/fedora-system:ContentModel-3.0>
+             and $object <fedora-model:state> <info:fedora/fedora-system:def/model#Active>
+             and ($object <fedora-rels-ext:isMemberOfCollection> <info:fedora/' . $this->pid . '>
+             or $object <fedora-rels-ext:isMemberOf> <info:fedora/' . $this->pid . '>))
+             minus $model <mulgara:is> <info:fedora/fedora-system:FedoraObject-3.0>
+             order by $title';
     return $this->query($query);
   }
 
   /**
-   * Runs a SPARQL query and returns the results in a array.
+   * Runs a ITQL query and returns the results in a array.
    * 
    * @return array
    */
   private function findMemberCollections() {
     $query = 'select $object $title $model $parent_model $created from <#ri>
-                             where ($object <info:fedora/fedora-system:def/model#label> $title
-                             and $object <fedora-model:createdDate> $created
-                             and $object <fedora-model:hasModel> $model
-                             and $model <fedora-model:hasModel> $parent_model
-                             and $parent_model <mulgara:is> <info:fedora/islandora:collectionCModel>
-                             and $object <fedora-model:state> <info:fedora/fedora-system:def/model#Active>
-                             and ($object <fedora-rels-ext:isMemberOfCollection> <info:fedora/' . $this->pid . '>
-                             or $object <fedora-rels-ext:isMemberOf> <info:fedora/' . $this->pid . '>))
-                             minus $model <mulgara:is> <info:fedora/fedora-system:FedoraObject-3.0>  
-                             order by $title';
+             where ($object <info:fedora/fedora-system:def/model#label> $title
+             and $object <fedora-model:createdDate> $created
+             and $object <fedora-model:hasModel> $model
+             and $model <fedora-model:hasModel> $parent_model
+             and $parent_model <mulgara:is> <info:fedora/islandora:collectionCModel>
+             and $object <fedora-model:state> <info:fedora/fedora-system:def/model#Active>
+             and ($object <fedora-rels-ext:isMemberOfCollection> <info:fedora/' . $this->pid . '>
+             or $object <fedora-rels-ext:isMemberOf> <info:fedora/' . $this->pid . '>))
+             minus $model <mulgara:is> <info:fedora/fedora-system:FedoraObject-3.0>  
+             order by $title';
     return $this->query($query);
   }
 
   /**
-   * Launch a SPARQL query. Returns all members found up to 1,000,000 results.
+   * Launch a ITQL query. Returns all members found up to 1,000,000 results.
    * 
    * @param string $query
-   *   SPARQL query.
+   *   ITQL query.
    * 
    * @return array
    */
@@ -311,12 +311,12 @@ class Collection {
    * @return array
    */
   private function populate($results) {
-    $module_path = base_path() . drupal_get_path('module', 'content_model_viewer');
+    $module_path = drupal_get_path('module', 'content_model_viewer');
     $image_path = $module_path . '/images';
     foreach ($results as &$result) {
       $pid = $result['pid'];
       $content_model_pid = $this->getContentModelPid($pid);
-      $result['link'] = base_path() . "fedora/repository/$pid";
+      $result['link'] = url("fedora/repository/$pid");
       $result['tn'] = $image_path . '/object.png';
       $result['description'] = $this->getDescription($pid);
     }
@@ -334,7 +334,7 @@ class Collection {
    */
   private function getDescription($pid) {
     module_load_include('inc', 'fedora_repository', 'api/fedora_item');
-    $default_description = 'Default Description, Check this object\'s metadata and ensure a description is present.';
+    $default_description = t('Default Description, Check this object\'s metadata and ensure a description is present.');
     $item = new Fedora_Item($pid);
     $dc = $item->get_datastream_dissemination('DC');
     $document = new DOMDocument();

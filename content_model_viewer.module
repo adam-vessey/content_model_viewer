@@ -11,6 +11,7 @@ module_load_include('inc', 'content_model_viewer', 'content_model_viewer.db'); /
 
 /**
  * Constants
+ * FIXME:  These shouldn't be constants, as the permissions should be translatable.
  */
 define("PERM_CONTENT_MODEL_VIEWER_VIEW_OBJECTS", 'View Objects & Datastreams');
 define("PERM_CONTENT_MODEL_VIEWER_MODIFY_OBJECT_PROPERTIES", 'Modify Object Properties');
@@ -103,7 +104,7 @@ function content_model_viewer_menu() {
   );
   $items['admin/settings/content_model_viewer/%/edit'] = array(
     'title' => 'Content Model Viewer Settings',
-    'description' => 'Settings for the Contet Model Viewer.',
+    'description' => 'Settings for the Content Model Viewer.',
     'file' => 'content_model_viewer.admin.inc',
     'page callback' => 'theme',
     'page arguments' => array('content_model_viewer_custom_settings', 3),
@@ -131,7 +132,7 @@ function content_model_viewer_menu_alter(&$items) {
 
 /**
  * Implements hook_perm. Register permissions.
- *
+ * FIXME:  Translation stuff doesn't like this: content_model_viewer_perm() should have an array of literal string permission names. In content_model_viewer.module. Read more at http://drupal.org/node/323101
  * @return array
  */
 function content_model_viewer_perm() {
@@ -877,7 +878,7 @@ function content_model_viewer_ingest_metadata_form(array &$form_state, $collecti
 // Queries the collection object for a child security datastream and if found parses it
 // to determine if this user is allowed to ingest in this collection
 // we assume if they are able to modify objects in the collection they can ingest as well.
-    drupal_set_message(t('You do not have premission to ingest here.'));
+    drupal_set_message(t('You do not have permission to ingest in this collection.'));
     return FALSE;
   }
   if ($collection_pid == NULL) {

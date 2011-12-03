@@ -129,10 +129,10 @@ function content_model_viewer_add_setting_validate(array $form, array &$form_sta
   }
   $item = new Fedora_Item($pid);
   if (!$item->exists()) {
-    form_set_error('content_model', "The fedora object {$pid} does not exists.");
+    form_set_error('content_model', t("The fedora object %pid does not exists.", array('%pid' => $pid)));
   }
   if (content_model_viewer_model_has_settings($pid)) {
-    form_set_error('content_model', "The content model {$pid} already has custom settings. Click on the edit link above to change them.");
+    form_set_error('content_model', t("The content model %pid already has custom settings. Click on the edit link above to change them.", array('%pid' => $pid)));
   }
 }
 
@@ -177,7 +177,7 @@ function content_model_viewer_add_setting(array $form, array &$form_state) {
 function content_model_viewer_delete_setting(array $form, array &$form_state) {
   $pid = $form_state['clicked_button']['#pid'];
   db_query('DELETE FROM {content_model_viewer_models} WHERE pid = "%s"', $pid);
-  drupal_set_message(t('Successfully removed settings for ') . $pid . '.');
+  drupal_set_message(t('Successfully removed settings for %pid.', array('%pid' => $pid)));
   drupal_goto('admin/settings/content_model_viewer');
 }
 
@@ -199,28 +199,33 @@ function content_model_viewer_datastream_default_rules_form(array &$form_state, 
     'datastreams' => array(
       '#type' => 'fieldset',
       '#title' => t('Default Datastream Display Rules (View/Download)'),
-      '#description' => t('<p>Datastream rules only apply to datastreams shown in the Overview/Viewer tab panels.
-        The <b>View</b> and <b>Download</b> properties specifiy what actions will be be avalible to the end user.
-        If both <b>View</b> and <b>Download</b> are <b>Prohibited</b> then the selected datastreams won\'t appear 
-        in the files section of the Overview/Viewer tab panels.</p>'),
+      '#description' => t(
+'Datastream rules only apply to datastreams shown in the Overview/Viewer tabs.  '.
+'The %view and %download properties specifiy what actions will be available to the end-user.  '.
+'If both %view and %download are %prohibited then the selected datastreams will not appear in the files section of the Overview/Viewer tab panels.  ', 
+        array(
+          '%view' => t('View'),
+          '%download' => t('Download'),
+          '%prohibited' => t('Prohibited')
+      )),
       'view' => array(
         '#type' => 'select',
         '#title' => t('Default Datastream View Behavior'),
         '#description' => t('If no MIME type or Datastream ID rules match below then this defines if the end user is able to view the Datastream or not.'),
-        '#options' => array(0 => 'Prohibit', 1 => 'Permit'),
-        '#default_value' => $view,
+        '#options' => array(0 => t('Prohibit'), 1 => t('Permit')),
+        '#default_value' => $view
       ),
       'download' => array(
         '#type' => 'select',
         '#title' => t('Default Datastream Download Behavior'),
         '#description' => t('If no MIME type or Datastream ID rules match below then this defines if the end user is able to download the Datastream or not.'),
-        '#options' => array(0 => 'Prohibit', 1 => 'Permit'),
-        '#default_value' => $download,
+        '#options' => array(0 => t('Prohibit'), 1 => t('Permit')),
+        '#default_value' => $download
       ),
       'submit' => array(
         '#type' => 'submit',
         '#model_id' => $model_id,
-        '#value' => 'Set Defaults'
+        '#value' => t('Set Defaults')
       )
     )
   );
@@ -850,12 +855,13 @@ function content_model_viewer_add_datastream_dsid_rule_validate(array $form, arr
  *   The Drupal Form State.
  */
 function content_model_viewer_regex_validate(array $element, array &$form_state) {
-  $pattern = '/' . $element['#value'] . '/';
+  global $language;
+  $pattern = '/'. $element['#value'] .'/';
   $result = @preg_match($pattern, '');
   if ($result === FALSE) {
-    $message = t('This value provided "@value" is not a valid regular expression. For more information click !here', array(
-      '@value' => $element['#value'],
-      '!here' => l(t('here'), 'http://php.net/manual/en/reference.pcre.pattern.syntax.php'))
+    $message = t('This value provided "%value" is not a valid regular expression. For more information click !here', array(
+      '%value' => $element['#value'],
+      '!here' => l(t('here'), "http://php.net/manual/{$language->language}/reference.pcre.pattern.syntax.php"))
     );
     form_error($element, $message);
   }
