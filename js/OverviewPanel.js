@@ -85,7 +85,16 @@ Ext.onReady(function(){
       },{
         xtype: 'pagingtoolbar',
         store: Ext.data.StoreManager.lookup('files'),   // same store GridPanel is using
-        dock: 'bottom'
+        dock: 'bottom',
+        displayMsg : Drupal.t('Displaying {0} - {1} of {2}'),
+        emptyMsg : Drupal.t('No data to display'),
+        beforePageText : Drupal.t('Page'),
+        afterPageText : Drupal.t('of {0}'),
+        firstText : Drupal.t('First Page'),
+        prevText : Drupal.t('Previous Page'),
+        nextText : Drupal.t('Next Page'),
+        lastText : Drupal.t('Last Page'),
+        refreshText : Drupal.t('Refresh')
       }],
       items: [{
         xtype: 'dataview',
