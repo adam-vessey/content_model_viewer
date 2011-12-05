@@ -410,6 +410,8 @@ function template_preprocess_content_model_viewer(array &$variables) {
   $item = new Fedora_Item($pid);
   $variables['label'] = $item->objectProfile->objLabel;
   $variables['base_url'] = base_path();
+  $variables['width'] = variable_get('content_model_viewer_width', 740);
+  $variables['height'] = variable_get('content_model_viewer_height', 800);
   $variables['dsid'] = 'SWF';
   $variables['view_function'] = 'loadFlexPlayer';
   $variables['paths'] = array(

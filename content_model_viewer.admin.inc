@@ -1,12 +1,46 @@
 <?php
 
-// $Id$
-
 /**
  * @file
  *
  * Defines a collection of functions and forms that appear in the admin section of the site. They allow the user 
  * to provided settings for this module.
+ */
+
+/**
+ * Provides a form that allows the user to specify display information for the content model viewer.
+ * 
+ * @param array $form_state
+ *   The Drupal Form State.
+ * 
+ * @return array 
+ *   A Drupal Form.
+ */
+function content_model_viewer_display_settings_form(array &$form_state) {
+  $form = array(
+    'fieldset' => array(
+      '#type' => 'fieldset',
+      '#title' => t('Content Model Display Settings'),
+      '#description' => t('Settings for configuring the size of the content model viewer.'),
+      'content_model_viewer_width' => array(
+        '#type' => 'textfield',
+        '#title' => t('Width'),
+        '#default_value' => variable_get('content_model_viewer_width', 740),
+      ),
+      'content_model_viewer_height' => array(
+        '#type' => 'textfield',
+        '#title' => t('Height'),
+        '#default_value' => variable_get('content_model_viewer_height', 800),
+      )
+    )
+  );
+  return system_settings_form($form);
+}
+
+/**
+ * content_model_viewer_custom_settings template_preprocess() hook.
+ * 
+ * @param array $variables 
  */
 function template_preprocess_content_model_viewer_custom_settings(array &$variables) {
   module_load_include('inc', 'fedora_repository', 'api/fedora_item');

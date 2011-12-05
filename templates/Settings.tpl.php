@@ -1,5 +1,9 @@
 <br/>
 <div id="admin-settings-main">
+  <h3><?php print t('Display Settings') ?></h3>
+  <div id="admin-settings-display-form">
+    <?php print drupal_get_form('content_model_viewer_display_settings_form'); ?>
+  </div>
   <h3><?php print t('Custom Settings') ?></h3>
   <div id="admin-settings-custom-form">
     <?php print drupal_get_form('content_model_viewer_custom_settings_form'); ?>

@@ -15,6 +15,8 @@ Ext.onReady(function(){
      */
   ContentModelViewer.properties.pid = $('#pid').text();
   ContentModelViewer.properties.dsid = $('#dsid').text();
+  ContentModelViewer.properties.width = parseInt($('#width').text());
+  ContentModelViewer.properties.height = parseInt($('#height').text());
   ContentModelViewer.properties.viewFunction = $('#view_function').text();
   ContentModelViewer.properties.url = {
     object: {

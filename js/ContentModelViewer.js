@@ -25,8 +25,8 @@ Ext.onReady(function(){
         tabs.push(Ext.create('ContentModelViewer.widgets.ManagePanel'));
     }
     var viewer = Ext.create('Ext.tab.Panel', {
-        width: 740,
-        height: 800,
+        width: ContentModelViewer.properties.width,
+        height: ContentModelViewer.properties.height,
         renderTo: 'content-model-viewer',
         items: tabs
     });
