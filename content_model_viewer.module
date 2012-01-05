@@ -392,7 +392,7 @@ function content_model_viewer_get_supported_viewers() {
 function content_model_viewer_get_viewer_properties($mime) {
   $viewers = content_model_viewer_get_supported_viewers();
   foreach ($viewers as $supported_mime_type => $properties) {
-    if ($supported_mime_type == $mime) { // @todo make both lower case.
+    if (strcasecmp($supported_mime_type, $mime) === 0) {
       return $properties;
     }
   }
@@ -430,6 +430,7 @@ function template_preprocess_content_model_viewer(array &$variables) {
       'view' => url("viewer/$pid/dsid/view")
     )
   );
+  //dsm($variables);
 }
 
 /**
@@ -460,7 +461,8 @@ function content_model_viewer($pid = NULL) {
   // End of COPY
   if (!content_model_viewer_has_registered_content_model_viewer($pid)) {
     //Push the call off to Islandora.
-    return call_user_func_array('repository_page', func_get_args());
+    $args = func_get_args();
+    return call_user_func_array('repository_page', $args);
   }
   // End of redirect to old fedora/repository handler
   $pid = isset($pid) ? $pid : variable_get('fedora_repository_pid', 'islandora:root');
