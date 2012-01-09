@@ -538,6 +538,10 @@ function content_model_viewer_overview($pid) {
     $javascript = drupal_add_js(NULL, NULL, 'header');
     $settings = call_user_func_array('array_merge_recursive', $javascript['setting']);
     unset($settings['ahah']['']);
+    
+    if (!headers_sent()) { //Better safe than sorry?
+      header('Content-type: application/json; charset=utf-8');
+    }
     echo json_encode(array('success' => TRUE, 'data' => $data, 'func' => $func, 'settings' => $settings));
   } catch (Exception $e) {
     drupal_set_message($e->getMessage());
@@ -554,6 +558,10 @@ function content_model_viewer_members($pid) {
   module_load_include('inc', 'content_model_viewer', 'Collection');
   $collection = new Collection($pid);
   list($data, $total) = $collection->getMembers();
+  
+  if (!headers_sent()) { //Better safe than sorry?
+    header('Content-type: application/json; charset=utf-8');
+  }
   echo json_encode(array('success' => TRUE, 'data' => $data, 'total' => $total));
   exit();
   /**
@@ -582,6 +590,10 @@ function content_model_viewer_datastreams($pid, $dsid = NULL) {
       $filter = isset($_GET['filter']) ? $_GET['filter'] : FALSE;
       $datastreams = new DatastreamProperties($pid);
       list($data, $total) = $datastreams->get($_GET['start'], $_GET['limit'], $filter);
+      
+      if (!headers_sent()) { //Better safe than sorry?
+        header('Content-type: application/json; charset=utf-8');
+      }
       echo json_encode(array('success' => TRUE, 'data' => $data, 'total' => $total));
       exit();
     case 'PUT':
@@ -591,6 +603,10 @@ function content_model_viewer_datastreams($pid, $dsid = NULL) {
         $data = json_decode($json);
         $datastreams = new DatastreamProperties($pid);
         $data = $datastreams->setProperties($dsid, $data);
+        
+        if (!headers_sent()) { //Better safe than sorry?
+          header('Content-type: application/json; charset=utf-8');
+        }
         echo json_encode(array('success' => TRUE, 'msg' => "Successfully modified $dsid's properties", 'data' => $data));
         exit();
       }
@@ -611,6 +627,10 @@ function content_model_viewer_properties($pid) {
     case 'GET':
       $object_properties = new ObjectProperties($pid);
       $properties = $object_properties->getProperties();
+      
+      if (!headers_sent()) { //Better safe than sorry?
+        header('Content-type: application/json; charset=utf-8');
+      }
       echo json_encode(array('success' => TRUE, 'data' => array($properties)));
       exit();
     case 'POST':
@@ -621,6 +641,10 @@ function content_model_viewer_properties($pid) {
       $success = $object_properties->setProperties($label, $owner, $state);
       $message = $success ? t('Successfuly modified object properties') : t('Failed to modify object properties');
       $properties = $object_properties->getProperties();
+      
+      if (!headers_sent()) { //Better safe than sorry?
+        header('Content-type: application/json; charset=utf-8');
+      }
       echo json_encode(array('success' => TRUE, 'msg' => $message, 'data' => $properties));
       exit();
   }
@@ -640,6 +664,10 @@ function content_model_viewer_purge_object($pid) {
   $item = new Fedora_Item($pid);
   $success = $item->purge();
   $message = $success ? t('Successfuly deleted object') : t('Failed to delete object');
+  
+  if (!headers_sent()) { //Better safe than sorry?
+    header('Content-type: application/json; charset=utf-8');
+  }
   echo json_encode(array('success' => $success, 'msg' => $message));
   exit();
 }
@@ -673,6 +701,9 @@ function content_model_viewer_add_datastream($pid) {
     }
   }
   $message = $success ? t('Successfully added datastream.') : t('Failed to add datastream.');
+  if (!headers_sent()) { //Better safe than sorry?
+    header('Content-type: application/json; charset=utf-8');
+  }
   echo json_encode(array('success' => $success, 'msg' => $message));
   exit();
 }
@@ -690,6 +721,10 @@ function content_model_viewer_purge_datastream($pid, $dsid) {
   $item = new Fedora_Item($pid);
   $success = $item->purge_datastream($dsid);
   $message = $success ? t('Successfully purged datastream.') : t('Failed to purge datastream.');
+  
+  if (!headers_sent()) { //Better safe than sorry?
+    header('Content-type: application/json; charset=utf-8');
+  }
   echo json_encode(array('success' => $success, 'msg' => $message));
   exit();
 }
